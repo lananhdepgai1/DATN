@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Medical Analytics System</title>
+    <link rel="stylesheet" href="Home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1>Medical Analytics System</h1>
+        </div>
+    </header>
+    <div class="main-container">
+        <nav>
+            <button class="nav-btn">UPLOAD</button>
+            <button class="nav-btn">VIEW</button>
+            <button class="nav-btn">PREDICT</button>
+        </nav>
+        <div class="content">
+            <div class="image-box" id="mri">
+                <h3>MRI</h3>
+                <p class="image-info">Magnetic Resonance Imaging</p>
+            </div>
+            <div class="image-box" id="ct">
+                <h3>CT</h3>
+                <p class="image-info">Computed Tomography</p>
+            </div>
+            <div class="image-box" id="derma">
+                <h3>Da liễu</h3>
+                <p class="image-info">Dermatology Image</p>
+            </div>
+            <div class="image-box" id="xray">
+                <h3>X-Quang</h3>
+                <p class="image-info">X-ray Imaging</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelector(".nav-btn:nth-child(2)").addEventListener("click", function() {
+        window.location.href = "../Predict Page/Predict.html"; // Trang con cho VIEW
+    });
+    document.querySelector(".nav-btn:nth-child(3)").addEventListener("click", function() {
+        window.location.href = "../Predict Page/Predict.html"; // Trang con cho PREDICT
+    });
+</script>
+
+</html>
