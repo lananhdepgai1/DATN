@@ -1,0 +1,180 @@
+/* Reset styles and box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f4f7;
+    color: #333;
+}
+
+header {
+    background-color: #14467b;
+    color: #FFF;
+    padding: 20px;
+    text-align: left;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-content {
+    display: flex;
+    padding: 20px;
+    background-color: #d3e9fb;
+    height: calc(100vh - 100px); /* Ensure the main content spans the height of the screen */
+}
+
+/* Sidebar with Predict Button and Images */
+.sidebar {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.predict-btn {
+    background-color: #14467b;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.predict-btn:hover {
+    background-color: #fff;
+    color: #14467b;
+}
+
+/* Align the input and output image previews vertically */
+.image-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Styling for input and output image previews */
+.image-preview {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm đổ bóng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #d3e9fb; /* Viền cho box */
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* Main Image Display Area */
+/* Main Image Display Area */
+.image-display {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* Đổi thành row để các nút nằm cùng hàng */
+    gap: 10px; /* Khoảng cách giữa large-image-box và các nút */
+}
+
+.large-image-box {
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Control buttons */
+.controls {
+    display: flex;
+    flex-direction: column; /* Các nút vẫn xếp dọc */
+    gap: 20px;
+}
+
+
+.control-icon {
+    width: 60px; /* Increased size */
+    height: 60px;
+    border-radius: 50%;
+    background-color: #d3e9fb;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Result and Download Section */
+.result-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+    height: 95%; /* Expanded height */
+}
+
+.result-box {
+    width: 100%;
+    height: 100%; /* Make the result box fill the section */
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.download-btn {
+    margin-top: 20px;
+    background-color: #14467b;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    background-color: #fff;
+    color: #14467b;
+}
