@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f0f4f7;
+    background-color: #d3e9fb;;
     color: #333;
 }
 
@@ -177,4 +177,23 @@ h1 {
 .download-btn:hover {
     background-color: #fff;
     color: #14467b;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px; /* Khoảng cách 20px so với đáy của trang */
+    width: 100%; /* Chiều rộng của footer bao phủ toàn bộ trang */
+    text-align: center; /* Canh giữa nội dung của footer */
+    color: #14467b; /* Màu chữ */
+    padding: 10px 0; /* Khoảng cách bên trong của footer */
+    z-index: 1000; /* Đảm bảo footer luôn ở trên cùng */
+}
+
+body {
+    padding-bottom: 100px; /* Chừa khoảng trống dưới cùng của body để footer không đè lên nội dung */
+    margin: 0; /* Đảm bảo không có khoảng cách thừa ngoài body */
+}
+
+.back-icon{
+    cursor: pointer;
 }

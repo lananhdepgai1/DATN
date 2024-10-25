@@ -128,3 +128,21 @@ nav::before {
 .image-box:hover .image-info {
     opacity: 1;
 }
+
+/* Footer cố định ở dưới cùng, cách body 20px */
+footer {
+    position: fixed;
+    bottom: 0px; /* Khoảng cách 20px so với đáy của trang */
+    width: 100%; /* Chiều rộng của footer bao phủ toàn bộ trang */
+    text-align: center; /* Canh giữa nội dung của footer */
+    color: #14467b; /* Màu chữ */
+    padding: 10px 0; /* Khoảng cách bên trong của footer */
+    z-index: 1000; /* Đảm bảo footer luôn ở trên cùng */
+}
+
+/* Đảm bảo phần body không dính footer khi zoom */
+body {
+    padding-bottom: 100px; /* Chừa khoảng trống dưới cùng của body để footer không đè lên nội dung */
+    margin: 0; /* Đảm bảo không có khoảng cách thừa ngoài body */
+}
+
