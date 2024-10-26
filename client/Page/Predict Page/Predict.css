@@ -196,7 +196,12 @@ body {
 
 .back-icon{
     cursor: pointer;
-     color: #14467b;
+    color: #14467b;
+}
+.control-icon
+{
+    cursor: pointer;
+    color: #14467b;
 }
 #uploaded-large-image{
     display: block;
