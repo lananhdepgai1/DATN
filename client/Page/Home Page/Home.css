@@ -6,6 +6,9 @@
 }
 html{
     height: 100%;
+    font-family: 'Poppins', sans-serif;
+
+
 }
 body {
     background-color: #d3e9fb;
@@ -39,7 +42,6 @@ header {
 h1 {
     font-size: 2rem; /* Tăng kích thước font chữ cho tiêu đề */
     font-weight: 400;
-    font-family: 'Poppins', sans-serif;
 }
 
 .main-container {
@@ -78,6 +80,9 @@ nav::before {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: none;
 }
 
 .nav-btn:hover {
