@@ -110,6 +110,7 @@ nav::before {
     align-items: center;
     position: relative;
     transition: transform 0.3s;
+    overflow: hidden;
 }
 
 .image-box h3 {
@@ -128,10 +129,25 @@ nav::before {
 
 .image-box:hover {
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .image-box:hover .image-info {
     opacity: 1;
+}
+
+
+
+.checkmark {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #039241;
+}
+.checkmark--active{
+    display: block;
 }
 
 /* Footer cố định ở dưới cùng, cách body 20px */
@@ -150,4 +166,54 @@ body {
     padding-bottom: 100px; /* Chừa khoảng trống dưới cùng của body để footer không đè lên nội dung */
     margin: 0; /* Đảm bảo không có khoảng cách thừa ngoài body */
 }
+.image-box#mri {
+    background-image: url("mri.jpg"), linear-gradient(to bottom, #14467b, #ffffff);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    position: relative; /* Needed for positioning .image-box-content */
 
+
+}
+.image-box#ct {
+    background-image: url("CT.jpg"), linear-gradient(to bottom, #14467b, #ffffff);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    position: relative; /* Needed for positioning .image-box-content */
+
+}
+
+.image-box#derma {
+    background-image: url("da.jpg"), linear-gradient(to bottom, #14467b, #ffffff);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    position: relative; /* Needed for positioning .image-box-content */
+
+}
+.image-box#xray {
+    background-image: url("x_quang.jpg"), linear-gradient(to bottom, #14467b, #ffffff);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    position: relative; /* Needed for positioning .image-box-content */
+
+}
+
+
+.image-box-content {
+    display: inline-block;
+    color: #fff !important;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0); /* Centers text horizontally */
+}
