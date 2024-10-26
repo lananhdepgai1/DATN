@@ -21,13 +21,13 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <i class="fa-solid fa-arrow-left back-icon"></i>
+        <a href="../Home Page/Home.html" class="back-icon"><i class="fa-solid fa-arrow-left"></i></a>
         <!-- Sidebar with Predict Button and Images -->
         <div class="sidebar">
             <button class="predict-btn">PREDICT</button>
             <div class="image-wrapper">
                 <div class="image-preview">
-                    <img src="input-placeholder.png" alt="Ảnh input ban đầu">
+                    <img id="uploaded-image-preview" src="input-placeholder.png" alt="Ảnh input ban đầu">
                 </div>
                 <div class="image-preview">
                     <img src="output-placeholder.png" alt="Ảnh sau khi Predict">
@@ -38,7 +38,7 @@
         <!-- Main Image Display Area -->
         <div class="image-display">
             <div class="large-image-box">
-                <p>Image Display Area</p>
+                <img id="uploaded-large-image" src="input-placeholder.png" alt="Ảnh để predict">
             </div>
             <div class="controls">
                 <button class="control-icon"><i class="fa-solid fa-circle-half-stroke"></i></button>
@@ -62,8 +62,14 @@
     <p>Copyright NhatNam_LanAnh © 2024</p>
 </footer>
 <script>
-    document.querySelector(".back-icon").addEventListener("click", function() {
-        window.location.href = "../Home Page/Home.html"; // Điều hướng quay lại trang home
-    });
+    // Khi trang Predict tải, kiểm tra xem có ảnh nào trong localStorage không
+    window.onload = function() {
+        const uploadedImage = localStorage.getItem("uploadedImage");
+        if (uploadedImage) {
+            // Hiển thị ảnh lên cả hai vị trí
+            document.getElementById("uploaded-image-preview").src = uploadedImage;
+            document.getElementById("uploaded-large-image").src = uploadedImage;
+        }
+    };
 </script>
 </html>
