@@ -25,18 +25,24 @@
             <a class="nav-btn" href="../Predict Page/Predict.html">PREDICT</a>
         </nav>
         <div class="content">
-            <div class="image-box" id="mri" onclick="Check(event)">
-                <h3 class="image-box-content">MRI</h3>
-                <span  class="checkmark checkmark--active"><i class="fa-solid fa-circle-check"></i></span>
-            </div>
-            <div class="image-box" id="ct">
-                <h3 class="image-box-content">CT</h3>
-            </div>
-            <div class="image-box" id="derma">
-                <h3 class="image-box-content">Da liễu</h3>
-            </div>
-            <div class="image-box" id="xray">
-                <h3 class="image-box-content">X-Quang</h3>
+            <div class="content">
+                <div class="image-box" id="mri" onclick="Check(event)">
+                    <h3 class="image-box-content">MRI</h3>
+                    <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="image-box" id="ct" onclick="Check(event)">
+                    <h3 class="image-box-content">CT</h3>
+                    <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="image-box" id="derma" onclick="Check(event)">
+                    <h3 class="image-box-content">Da liễu</h3>
+                    <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="image-box" id="xray" onclick="Check(event)">
+                    <h3 class="image-box-content">X-Quang</h3>
+                    <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -67,10 +73,19 @@
         };
         reader.readAsDataURL(file); // Đọc file ảnh dưới dạng URL base64
     }
+    
     function Check(event) {
-        const checkmark = document.getElementsByClassName("checkmark")[0];
-        checkmark.classList.toggle("checkmark--active")
+        // Xóa tất cả các dấu tích xanh khỏi các image-box khác
+        const allCheckmarks = document.querySelectorAll(".checkmark");
+        allCheckmarks.forEach(check => check.classList.remove("checkmark--active"));
+
+        // Hiển thị dấu tích xanh cho image-box được chọn
+        const selectedCheckmark = event.currentTarget.querySelector(".checkmark");
+        selectedCheckmark.classList.add("checkmark--active");
     }
+</script>
+
+
 </script>
 
 </html>
