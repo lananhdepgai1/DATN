@@ -109,6 +109,7 @@ h1 {
     align-items: center;
     flex-direction: row; /* Đổi thành row để các nút nằm cùng hàng */
     gap: 10px; /* Khoảng cách giữa large-image-box và các nút */
+    margin-left: 20px;
 }
 
 .large-image-box {
