@@ -22,7 +22,7 @@
             <label for="file-upload" class="nav-btn">UPLOAD</label>
             <span id="upload-message" style="display: none;"></span>
             <a class="nav-btn" href="#" onclick="viewImage()">VIEW</a>
-            <span class="nav-btn predict-btn" >PREDICT</span>
+            <span class="nav-btn predict-btn">PREDICT</span>
         </nav>
         <div class="content">
             <div class="content">
@@ -42,7 +42,6 @@
                     <h3 class="image-box-content">X-Quang</h3>
                     <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -54,29 +53,50 @@
 </footer>
 
 <script>
-    function uploadFile(event) {
-        const file = event.target.files[0];
-        const messageDiv = document.getElementById("upload-message");
-        if (!file) {
-            messageDiv.textContent = `Lỗi`;
-            messageDiv.style.color = "red";
-            messageDiv.style.display = "block";
-            return;
-        }
-        messageDiv.textContent = `${file.name}`;
-        messageDiv.style.color = "#14467b";
-        messageDiv.style.display = "block";
-        
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            localStorage.setItem("uploadedImage", event.target.result); // Lưu URL ảnh
-        };
-        reader.readAsDataURL(file); // Đọc file ảnh dưới dạng URL base64
-    }
-    function viewImage() {
-    const uploadedImage = localStorage.getItem("uploadedImage");
+async function uploadFile(event) {
+    const file = event.target.files[0];
+    const messageDiv = document.getElementById("upload-message");
 
-    if (uploadedImage) {
+    if (!file) {
+        messageDiv.textContent = `Lỗi`;
+        messageDiv.style.color = "red";
+        messageDiv.style.display = "block";
+        return;
+    }
+
+    messageDiv.textContent = `${file.name}`;
+    messageDiv.style.color = "#14467b";
+    messageDiv.style.display = "block";
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+        const response = await fetch("http://127.0.0.1:9999/api/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (result.image_url) {
+            // Save Cloudinary URL to sessionStorage
+            sessionStorage.setItem("uploadedImageUrl", result.image_url);
+        } else {
+            alert("Có lỗi xảy ra khi xử lý ảnh. Vui lòng thử lại.");
+        }
+    } catch (error) {
+        alert("Không thể kết nối đến API. Vui lòng kiểm tra lại kết nối.");
+    }
+}
+
+function viewImage() {
+    const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
+    print(uploadedImageUrl)
+    if (uploadedImageUrl) {
         // Chuyển hướng đến trang Predict nếu đã tải ảnh
         window.location.href = "../Predict Page/Predict.html";
     } else {
@@ -84,38 +104,35 @@
         alert("Vui lòng tải ảnh lên trước.");
     }
 }
-    function Check(event) {
-        // Xóa tất cả các dấu tích xanh khỏi các image-box khác
-        const allCheckmarks = document.querySelectorAll(".checkmark");
-        allCheckmarks.forEach(check => check.classList.remove("checkmark--active"));
 
-        // Hiển thị dấu tích xanh cho image-box được chọn
-        const selectedCheckmark = event.currentTarget.querySelector(".checkmark");
-        selectedCheckmark.classList.add("checkmark--active");
+function Check(event) {
+    const allCheckmarks = document.querySelectorAll(".checkmark");
+    allCheckmarks.forEach(check => check.classList.remove("checkmark--active"));
+
+    const selectedCheckmark = event.currentTarget.querySelector(".checkmark");
+    selectedCheckmark.classList.add("checkmark--active");
+}
+
+window.onload = function() {
+    const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
+    if (uploadedImageUrl) {
+        document.getElementById("uploaded-image-preview").src = uploadedImageUrl;
+        document.getElementById("uploaded-large-image").src = uploadedImageUrl;
     }
-    // Khi trang Predict tải, kiểm tra xem có ảnh nào trong localStorage không
-    window.onload = function() {
-        const uploadedImage = localStorage.getItem("uploadedImage");
-        if (uploadedImage) {
-            // Hiển thị ảnh lên cả hai vị trí
-            document.getElementById("uploaded-image-preview").src = uploadedImage;
-            document.getElementById("uploaded-large-image").src = uploadedImage;
-        }
-    };
+};
 
-    async function predictImage() {
-    const uploadedImage = localStorage.getItem("uploadedImage");
-    if (!uploadedImage) {
+async function predictImage() {
+    const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
+    if (!uploadedImageUrl) {
         alert("Vui lòng tải ảnh lên trước.");
         return;
     }
     
     try {
-        // Gửi ảnh đến backend API
         const response = await fetch("http://127.0.0.1:9999/api/upload", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image: uploadedImage })
+            body: JSON.stringify({ image_url: uploadedImageUrl })
         });
         
         if (!response.ok) {
@@ -125,11 +142,8 @@
         const result = await response.json();
 
         if (result.processed_image) {
-            // Lưu ảnh xử lý vào localStorage
             const processedImageSrc = `data:image/png;base64,${result.processed_image}`;
-            localStorage.setItem("uploadedImage", processedImageSrc);
-            
-            // Điều hướng đến trang Predict
+            sessionStorage.setItem("uploadedImageUrl", processedImageSrc);
             window.location.href = "../Predict Page/Predict.html";
         } else {
             console.error("Lỗi khi xử lý ảnh:", result.error || "Unknown error occurred.");
@@ -141,9 +155,7 @@
     }
 }
 
-    // Gán hàm predictImage vào các nút Predict
-    document.querySelector('.predict-btn').addEventListener('click', predictImage);
+document.querySelector('.predict-btn').addEventListener('click', predictImage);
 </script>
-
 
 </html>
