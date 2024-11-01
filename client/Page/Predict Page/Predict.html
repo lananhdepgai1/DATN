@@ -27,7 +27,8 @@
             <button class="predict-btn">PREDICT</button>
             <div class="image-wrapper">
                 <div class="image-preview">
-                    <img id="uploaded-image-preview" src="input-placeholder.png" alt="Ảnh input ban đầu">
+                    <span id="uploaded-image-preview"></span>
+                    <!-- <img id="uploaded-image-preview" src="input-placeholder.png" alt="Ảnh input ban đầu"> -->
                 </div>
                 <div class="image-preview">
                     <img src="output-placeholder.png" alt="Ảnh sau khi Predict">
@@ -61,67 +62,75 @@
 <footer>
     <p>Copyright NhatNam_LanAnh © 2024</p>
 </footer>
-
 <script>
-function displayImage() {
-    const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
-    if (uploadedImageUrl) {
-        document.getElementById("uploaded-image-preview").src = uploadedImageUrl;
-        document.getElementById("uploaded-large-image").src = uploadedImageUrl;
-    } else {
-        alert("Vui lòng tải ảnh lên trước.");
-    }
-}
-
-async function predictImage() {
-    const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
-    if (!uploadedImageUrl) {
-        alert("Vui lòng tải ảnh lên trước.");
-        return;
-    }
-    try {
-        const response = await fetch("http://127.0.0.1:9999/api/predict", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image_url: uploadedImageUrl })
-        });
-
-        if (!response.ok) {
-            throw new Error(`API request failed with status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        if (result.processed_image_url) {
-            document.getElementById("uploaded-large-image").src = result.processed_image_url;
-            document.getElementById("uploaded-image-preview").src = result.processed_image_url;
-            sessionStorage.setItem("processedImageUrl", result.processed_image_url);
+ function displayImage() {
+        const uploadedImageUrl = localStorage.getItem("uploadedFileUrl");
+        if (uploadedImageUrl) {
+            document.getElementById("uploaded-image-preview").textContent = uploadedImageUrl;
+            // document.getElementById("uploaded-image-preview").src = uploadedImageUrl;
+            // document.getElementById("uploaded-large-image").src = uploadedImageUrl;
         } else {
-            console.error("Lỗi khi xử lý ảnh:", result.error || "Unknown error occurred.");
-            alert("Có lỗi xảy ra khi xử lý ảnh. Vui lòng thử lại.");
+            alert("Vui lòng tải ảnh lên trước.");
         }
-    } catch (error) {
-        console.error("Lỗi khi gọi API:", error.message);
-        alert("Không thể kết nối đến API. Vui lòng kiểm tra lại kết nối.");
-    }
-}
-
-document.querySelector('.predict-btn').addEventListener('click', predictImage);
-
-function downloadImage() {
-    const processedImageUrl = sessionStorage.getItem("processedImageUrl");
-
-    if (!processedImageUrl) {
-        alert("Vui lòng chọn ảnh trước khi tải xuống.");
-        return;
     }
 
-    const downloadLink = document.createElement("a");
-    downloadLink.href = processedImageUrl;
-    downloadLink.download = "predicted-image.png";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
-</script>
+    window.onload = displayImage;
+    
+    async function predictImage() {
+        const uploadedImageUrl = sessionStorage.getItem("uploadedImageUrl");
+        if (!uploadedImageUrl) {
+            alert("Vui lòng tải ảnh lên trước.");
+            return;
+        }
+    
+        try {
+            const response = await fetch("http://127.0.0.1:9999/api/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ image_url: uploadedImageUrl })
+            });
+    
+            if (!response.ok) {
+                throw new Error(`API request failed with status: ${response.status}`);
+            }
+    
+            const result = await response.json();
+    
+            if (result.processed_image_url) {
+                document.getElementById("uploaded-large-image").src = result.processed_image_url;
+                document.getElementById("uploaded-image-preview").src = result.processed_image_url;
+                sessionStorage.setItem("processedImageUrl", result.processed_image_url);
+            } else {
+                console.error("Lỗi khi xử lý ảnh:", result.error || "Unknown error occurred.");
+                alert("Có lỗi xảy ra khi xử lý ảnh. Vui lòng thử lại.");
+            }
+        } catch (error) {
+            console.error("Lỗi khi gọi API:", error.message);
+            alert("Không thể kết nối đến API. Vui lòng kiểm tra lại kết nối.");
+        }
+    }
+    
+    document.querySelector('.predict-btn').addEventListener('click', predictImage);
+    
+    function downloadImage() {
+        const processedImageUrl = sessionStorage.getItem("processedImageUrl");
+    
+        if (!processedImageUrl) {
+            alert("Vui lòng chọn ảnh trước khi tải xuống.");
+            return;
+        }
+    
+        const downloadLink = document.createElement("a");
+        downloadLink.href = processedImageUrl;
+        downloadLink.download = "processed_image.png";
+        downloadLink.click();
+    }
+    
+    function clearUploadedImage() {
+        sessionStorage.removeItem("uploadedImageUrl");
+        sessionStorage.removeItem("processedImageUrl");
+    }
+    
+    window.onload = displayImage;
+    </script>
 </html>
