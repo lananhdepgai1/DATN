@@ -258,6 +258,9 @@
 .control-icon:active {
     transform: scale(0.95);
 }
+/* .control-icon.active {
+    transform: scale(0.85); }/* Thu nhỏ khi đang chọn */
+
 
 .control-icon i {
     margin: 0;

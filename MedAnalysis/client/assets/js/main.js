@@ -226,6 +226,10 @@ const ctx = mainImageCanvas.getContext('2d');
 let isRotating = false;
 let currentAngle = 0; // Góc xoay hiện tại
 
+// Lưu ảnh gốc vào biến
+const originalImage = new Image();
+originalImage.src = mainImageCanvas.toDataURL();
+
 // Xử lý sự kiện click cho nút rotate
 const rotateButton = document.querySelector('.rotate');
 rotateButton.addEventListener('click', () => {
@@ -257,7 +261,7 @@ function rotateImage(event) {
         ctx.translate(mainImageCanvas.width / 2, mainImageCanvas.height / 2); // Đặt tâm xoay
         ctx.rotate(currentAngle); // Xoay canvas
         ctx.translate(-mainImageCanvas.width / 2, -mainImageCanvas.height / 2); // Đặt lại vị trí gốc
-        ctx.drawImage(mainImageCanvas, 0, 0); // Vẽ ảnh xoay
+        ctx.drawImage(originalImage, 0, 0, mainImageCanvas.width, mainImageCanvas.height); // Vẽ lại ảnh xoay từ ảnh gốc
         ctx.restore();
     }
 }
