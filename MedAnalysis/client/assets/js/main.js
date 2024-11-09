@@ -219,16 +219,29 @@ window.addEventListener('load', () => {
     localStorage.removeItem("negative");
 });
 
+//// Lấy tất cả các nút có class .control-icon
+const controlButtons = document.querySelectorAll('.control-icon');
+
+controlButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (button.classList.contains('selected')) {
+            button.classList.remove('selected'); // Nếu nút đang chọn, bỏ chọn
+        } else {
+            button.classList.add('selected'); // Nếu nút chưa chọn, thêm lớp selected
+        }
+    });
+});
+
+
+
+//////////////////////////////////
+
 
 // xoay ảnh 
 const mainImageCanvas = document.querySelector('.main-image');
 const ctx = mainImageCanvas.getContext('2d');
 let isRotating = false;
 let currentAngle = 0; // Góc xoay hiện tại
-
-// Lưu ảnh gốc vào biến
-const originalImage = new Image();
-originalImage.src = mainImageCanvas.toDataURL();
 
 // Xử lý sự kiện click cho nút rotate
 const rotateButton = document.querySelector('.rotate');
@@ -261,7 +274,7 @@ function rotateImage(event) {
         ctx.translate(mainImageCanvas.width / 2, mainImageCanvas.height / 2); // Đặt tâm xoay
         ctx.rotate(currentAngle); // Xoay canvas
         ctx.translate(-mainImageCanvas.width / 2, -mainImageCanvas.height / 2); // Đặt lại vị trí gốc
-        ctx.drawImage(originalImage, 0, 0, mainImageCanvas.width, mainImageCanvas.height); // Vẽ lại ảnh xoay từ ảnh gốc
+        ctx.drawImage(mainImageCanvas, 0, 0); // Vẽ ảnh xoay
         ctx.restore();
     }
 }
